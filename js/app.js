@@ -73,7 +73,6 @@ color.addEventListener('change', (e) => {
   datosBusqueda.color = e.target.value;
 
   filtrarAuto();
-  console.log(datosBusqueda);
 })
 
 // Funciones
@@ -122,9 +121,21 @@ function filtrarAuto() {
     .filter(filtrarPuertas)
     .filter(filtrarTransmision)
     .filter(filtrarColor);
-  console.log(resultado);
 
-  mostrarAutos(resultado);
+  if (resultado.length) {
+    mostrarAutos(resultado);
+  } else {
+    noResultado();
+  }
+}
+
+function noResultado() {
+  limpiarHTML();
+
+  const noResultado = document.createElement('div');
+  noResultado.classList.add('alerta', 'error', 'rounded-lg');
+  noResultado.textContent = 'No hay ningun resultado, intenta con otras opciones de busqueda';
+  resultado.appendChild(noResultado)
 }
 
 function filtrarMarca(auto) {
